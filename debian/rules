@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/pkg-info.mk
+
+JAVA_HOME := /usr/lib/jvm/default-java
+
+%:
+	dh $@ --with maven-repo-helper --with javahelper
+
+override_dh_auto_build:
+	dh_auto_build -- -Ddistribution.name=$(shell lsb_release -si) embed-jars deploy
+
+	# Prepare the Maven artifacts
+	mkdir -p debian/poms
+	cp res/maven/*.pom debian/poms
+	perl -p -i -e 's/\@MAVEN.DEPLOY.VERSION\@/$(DEB_VERSION_UPSTREAM)/' debian/poms/*.pom
+
+override_dh_auto_test:
+ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
+	mkdir -p webapps/examples/WEB-INF/lib
+	cp /usr/share/java/taglibs-standard-spec.jar webapps/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5.jar
+	cp /usr/share/java/taglibs-standard-impl.jar webapps/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5.jar
+	dh_auto_build -- test -Dtest.apr.loc=/usr/lib/$(shell dpkg-architecture --query DEB_BUILD_MULTIARCH) -Dtest.verbose=false
+endif
+
+override_dh_install-indep:
+	dh_install -i --exclude=.bat --exclude=Thumbs.db
+
+	# update the checksum for the root webapp
+	unset rwmd5sum \
+		&& rwmd5sum=`cat debian/default_root/index.html debian/default_root/META-INF/context.xml | md5sum - 2>/dev/null | cut -d " " -f1` \
+		&& sed "s/\@ROOT_WEBAPP_MD5SUM\@/$$rwmd5sum/" debian/tomcat9.postrm.in > debian/tomcat9.postrm

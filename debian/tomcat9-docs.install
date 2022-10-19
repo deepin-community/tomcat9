@@ -1,0 +1,2 @@
+debian/context/docs.xml    /etc/tomcat9/Catalina/localhost/
+output/build/webapps/docs  /usr/share/tomcat9-docs/

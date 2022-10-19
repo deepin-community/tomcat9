@@ -1,0 +1,35 @@
+From: James Pages <james.page@canonical.com>
+Date: Mon, 27 Sep 2021 16:45:13 +0200
+Subject: Disable usage of embedded library copies
+
+Forwarded: no
+Last-Update: 2011-05-16
+---
+ build.xml | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index 5c71f48..e7cc2cb 100644
+--- a/build.xml
++++ b/build.xml
+@@ -964,7 +964,7 @@
+     </copy>
+   </target>
+ 
+-  <target name="compile" depends="download-compile,validate">
++  <target name="compile" depends="setup-bnd,validate">
+     <!-- Compile internal server components -->
+     <javac srcdir="java" destdir="${tomcat.classes}"
+            debug="${compile.debug}"
+@@ -1409,9 +1409,9 @@
+ 
+   <target name="deploy" depends="package,build-docs,build-tomcat-jdbc,compile-webapp-examples,deploy-webapps"
+           description="Default. Builds a working Tomcat instance">
+-
++<!--
+     <copy tofile="${tomcat.build}/bin/commons-daemon.jar" file="${commons-daemon.jar}" />
+-
++-->
+     <!-- Copy scripts -->
+     <copy todir="${tomcat.build}/bin">
+       <fileset dir="bin">

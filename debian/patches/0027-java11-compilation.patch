@@ -1,0 +1,29 @@
+Description: Fixes the compilation with Java 11
+Author: Emmanuel Bourg <ebourg@apache.org>
+Forwarded: no
+--- a/build.xml
++++ b/build.xml
+@@ -957,11 +957,23 @@
+            deprecation="${compile.deprecation}"
+            source="${compile.source}"
+            target="${compile.target}"
++           release="${compile.release}"
+            encoding="ISO-8859-1"
++           excludes="**/JmxRemoteLifecycleListener*"
+            includeAntRuntime="true" >
+       <!-- Uncomment this to show unchecked warnings:
+       <compilerarg value="-Xlint:unchecked"/>
+       -->
++      <classpath refid="compile.classpath" />
++    </javac>
++    <javac srcdir="java" destdir="${tomcat.classes}"
++           debug="${compile.debug}"
++           deprecation="${compile.deprecation}"
++           source="${compile.source}"
++           target="${compile.target}"
++           encoding="ISO-8859-1"
++           includes="**/JmxRemoteLifecycleListener*"
++           includeAntRuntime="true" >
+       <compilerarg value="-XDignore.symbol.file"/>
+       <classpath refid="compile.classpath" />
+     </javac>

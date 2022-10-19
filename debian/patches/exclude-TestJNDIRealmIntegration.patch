@@ -1,0 +1,24 @@
+From: Markus Koschany <apo@debian.org>
+Date: Fri, 24 Sep 2021 16:29:54 +0200
+Subject: exclude TestJNDIRealmIntegration
+
+Exclude TestJNDIRealmIntegration.java because it FTBFS due to missing
+dependencies.
+
+Forwarded: not-needed
+---
+ build.xml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/build.xml b/build.xml
+index 84429db..4b4d289 100644
+--- a/build.xml
++++ b/build.xml
+@@ -1848,6 +1848,7 @@
+       <!-- Exclude these by default as Gump can't run them because the -->
+       <!-- classes on which they depend are not in any output JAR.     -->
+       <exclude name="org/apache/tomcat/buildutil/**"/>
++      <exclude name="org/apache/catalina/realm/TestJNDIRealmIntegration.java"/>
+     </javac>
+     <copy todir="${test.classes}">
+       <fileset dir="test">

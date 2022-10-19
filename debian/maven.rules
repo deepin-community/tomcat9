@@ -1,0 +1,37 @@
+# Publish 9.x instead of 'debian' artifacts to avoid conflicts with other versions of Tomcat
+org.apache.tomcat tomcat                     * s/.*/9.x/
+org.apache.tomcat tomcat-annotations-api     * s/.*/9.x/
+org.apache.tomcat tomcat-api                 * s/.*/9.x/
+org.apache.tomcat tomcat-catalina            * s/.*/9.x/
+org.apache.tomcat tomcat-catalina-ant        * s/.*/9.x/
+org.apache.tomcat tomcat-catalina-ha         * s/.*/9.x/
+org.apache.tomcat tomcat-catalina-jmx-remote * s/.*/9.x/
+org.apache.tomcat tomcat-catalina-ws         * s/.*/9.x/
+org.apache.tomcat tomcat-coyote              * s/.*/9.x/
+org.apache.tomcat tomcat-dbcp                * s/.*/9.x/
+org.apache.tomcat tomcat-el-api              * s/.*/9.x/
+org.apache.tomcat tomcat-i18n-es             * s/.*/9.x/
+org.apache.tomcat tomcat-i18n-fr             * s/.*/9.x/
+org.apache.tomcat tomcat-i18n-ja             * s/.*/9.x/
+org.apache.tomcat tomcat-i18n-ru             * s/.*/9.x/
+org.apache.tomcat tomcat-jasper              * s/.*/9.x/
+org.apache.tomcat tomcat-jasper-el           * s/.*/9.x/
+org.apache.tomcat tomcat-jaspic-api          * s/.*/9.x/
+org.apache.tomcat tomcat-jdbc                * s/.*/9.x/
+org.apache.tomcat tomcat-jni                 * s/.*/9.x/
+org.apache.tomcat tomcat-jsp-api             * s/.*/9.x/
+org.apache.tomcat tomcat-juli                * s/.*/9.x/
+org.apache.tomcat tomcat-servlet-api         * s/.*/9.x/
+org.apache.tomcat tomcat-storeconfig         * s/.*/9.x/
+org.apache.tomcat tomcat-tribes              * s/.*/9.x/
+org.apache.tomcat tomcat-util                * s/.*/9.x/
+org.apache.tomcat tomcat-util-scan           * s/.*/9.x/
+org.apache.tomcat tomcat-websocket           * s/.*/9.x/
+org.apache.tomcat tomcat-websocket-api       * s/.*/9.x/
+
+org.eclipse.jdt s/ecj/org.eclipse.jdt.core/  * s/.*/debian/
+
+org.apache.tomcat.embed tomcat-embed-core      * s/.*/9.x/
+org.apache.tomcat.embed tomcat-embed-el        * s/.*/9.x/
+org.apache.tomcat.embed tomcat-embed-jasper    * s/.*/9.x/
+org.apache.tomcat.embed tomcat-embed-websocket * s/.*/9.x/

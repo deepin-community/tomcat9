@@ -1,0 +1,146 @@
+Description: Fixes the compatibility with the version of Easymock in Debian
+Author: Emmanuel Bourg <ebourg@apache.org>
+Forwarded: no
+--- a/test/org/apache/catalina/valves/TestCrawlerSessionManagerValve.java
++++ b/test/org/apache/catalina/valves/TestCrawlerSessionManagerValve.java
+@@ -58,13 +58,13 @@
+         CrawlerSessionManagerValve valve = new CrawlerSessionManagerValve();
+         valve.setCrawlerIps("216\\.58\\.206\\.174");
+         valve.setCrawlerUserAgents(valve.getCrawlerUserAgents());
+-        valve.setNext(EasyMock.createMock(Valve.class));
++        valve.setNext((Valve) EasyMock.createMock(Valve.class));
+         HttpSession session = createSessionExpectations(valve, true);
+         Request request = createRequestExpectations("216.58.206.174", session, true);
+ 
+         EasyMock.replay(request, session);
+ 
+-        valve.invoke(request, EasyMock.createMock(Response.class));
++        valve.invoke(request, (Response) EasyMock.createMock(Response.class));
+ 
+         EasyMock.verify(request, session);
+     }
+@@ -74,13 +74,13 @@
+         CrawlerSessionManagerValve valve = new CrawlerSessionManagerValve();
+         valve.setCrawlerIps("216\\.58\\.206\\.174");
+         valve.setCrawlerUserAgents(valve.getCrawlerUserAgents());
+-        valve.setNext(EasyMock.createMock(Valve.class));
++        valve.setNext((Valve) EasyMock.createMock(Valve.class));
+         HttpSession session = createSessionExpectations(valve, false);
+         Request request = createRequestExpectations("127.0.0.1", session, false);
+ 
+         EasyMock.replay(request, session);
+ 
+-        valve.invoke(request, EasyMock.createMock(Response.class));
++        valve.invoke(request, (Response) EasyMock.createMock(Response.class));
+ 
+         EasyMock.verify(request, session);
+     }
+@@ -91,7 +91,7 @@
+         valve.setCrawlerUserAgents(valve.getCrawlerUserAgents());
+         valve.setHostAware(true);
+         valve.setContextAware(true);
+-        valve.setNext(EasyMock.createMock(Valve.class));
++        valve.setNext((Valve) EasyMock.createMock(Valve.class));
+ 
+         verifyCrawlingLocalhost(valve, "localhost");
+         verifyCrawlingLocalhost(valve, "example.invalid");
+@@ -103,7 +103,7 @@
+         valve.setCrawlerUserAgents(valve.getCrawlerUserAgents());
+         valve.setHostAware(true);
+         valve.setContextAware(true);
+-        valve.setNext(EasyMock.createMock(Valve.class));
++        valve.setNext((Valve) EasyMock.createMock(Valve.class));
+ 
+         verifyCrawlingContext(valve, "/examples");
+         verifyCrawlingContext(valve, null);
+@@ -114,7 +114,7 @@
+         CrawlerSessionManagerValve valve = new CrawlerSessionManagerValve();
+         valve.setCrawlerIps("216\\.58\\.206\\.174");
+         valve.setCrawlerUserAgents(valve.getCrawlerUserAgents());
+-        valve.setNext(EasyMock.createMock(Valve.class));
++        valve.setNext((Valve) EasyMock.createMock(Valve.class));
+         valve.setSessionInactiveInterval(0);
+         StandardSession session = new StandardSession(TEST_MANAGER);
+         session.setId("id");
+@@ -124,7 +124,7 @@
+ 
+         EasyMock.replay(request);
+ 
+-        valve.invoke(request, EasyMock.createMock(Response.class));
++        valve.invoke(request, (Response) EasyMock.createMock(Response.class));
+ 
+         EasyMock.verify(request);
+ 
+@@ -143,7 +143,7 @@
+ 
+         EasyMock.replay(request, session);
+ 
+-        valve.invoke(request, EasyMock.createMock(Response.class));
++        valve.invoke(request, (Response) EasyMock.createMock(Response.class));
+ 
+         EasyMock.verify(request, session);
+     }
+@@ -156,14 +156,14 @@
+ 
+         EasyMock.replay(request, session);
+ 
+-        valve.invoke(request, EasyMock.createMock(Response.class));
++        valve.invoke(request, (Response) EasyMock.createMock(Response.class));
+ 
+         EasyMock.verify(request, session);
+     }
+ 
+ 
+     private HttpSession createSessionExpectations(CrawlerSessionManagerValve valve, boolean isBot) {
+-        HttpSession session = EasyMock.createMock(HttpSession.class);
++        HttpSession session = (HttpSession) EasyMock.createMock(HttpSession.class);
+         if (isBot) {
+             EasyMock.expect(session.getId()).andReturn("id").times(2);
+             session.setAttribute(EasyMock.eq(valve.getClass().getName()), EasyMock.anyObject(HttpSessionBindingListener.class));
+@@ -181,7 +181,7 @@
+ 
+     private Request createRequestExpectations(String ip, HttpSession session, boolean isBot, String hostname,
+             String contextPath, String userAgent) {
+-        Request request = EasyMock.createMock(Request.class);
++        Request request = (Request) EasyMock.createMock(Request.class);
+         EasyMock.expect(request.getRemoteAddr()).andReturn(ip);
+         EasyMock.expect(request.getHost()).andReturn(simpleHostWithName(hostname));
+         EasyMock.expect(request.getContext()).andReturn(simpleContextWithName(contextPath));
+@@ -195,7 +195,7 @@
+     }
+ 
+     private Host simpleHostWithName(String hostname) {
+-        Host host = EasyMock.createMock(Host.class);
++        Host host = (Host) EasyMock.createMock(Host.class);
+         EasyMock.expect(host.getName()).andReturn(hostname);
+         EasyMock.replay(host);
+         return host;
+@@ -205,7 +205,7 @@
+         if (contextPath == null) {
+             return null;
+         }
+-        Context context = EasyMock.createMock(Context.class);
++        Context context = (Context) EasyMock.createMock(Context.class);
+         EasyMock.expect(context.getName()).andReturn(contextPath);
+         EasyMock.replay(context);
+         return context;
+--- a/test/org/apache/catalina/valves/TestSSLValve.java
++++ b/test/org/apache/catalina/valves/TestSSLValve.java
+@@ -36,7 +36,7 @@
+     public static class MockRequest extends Request {
+ 
+         public MockRequest() {
+-            super(EasyMock.createMock(Connector.class));
++            super((Connector) EasyMock.createMock(Connector.class));
+             setCoyoteRequest(new org.apache.coyote.Request());
+         }
+ 
+@@ -93,7 +93,7 @@
+     private SSLValve valve = new SSLValve();
+ 
+     private MockRequest mockRequest = new MockRequest();
+-    private Valve mockNext = EasyMock.createMock(Valve.class);
++    private Valve mockNext = (Valve) EasyMock.createMock(Valve.class);
+ 
+ 
+     @Before

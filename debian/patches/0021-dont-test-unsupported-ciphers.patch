@@ -1,0 +1,69 @@
+From: Markus Koschany <apo@debian.org>
+Date: Fri, 24 Sep 2021 14:52:24 +0200
+Subject: 0021-dont-test-unsupported-ciphers
+
+Don't check the IDEA cipher during the tests since it is disabled in Debian (see #327739)
+Also ignore ARIA which is disabled by default in OpenSSL.
+
+Forwarded: not-needed
+---
+ .../tomcat/util/net/openssl/ciphers/TestCipher.java    |  2 +-
+ .../ciphers/TestOpenSSLCipherConfigurationParser.java  |  2 +-
+ .../tomcat/util/net/openssl/ciphers/TesterOpenSSL.java | 18 ++++++++++++++++++
+ 3 files changed, 20 insertions(+), 2 deletions(-)
+
+diff --git a/test/org/apache/tomcat/util/net/openssl/ciphers/TestCipher.java b/test/org/apache/tomcat/util/net/openssl/ciphers/TestCipher.java
+index ab5e033..d6a7ad9 100644
+--- a/test/org/apache/tomcat/util/net/openssl/ciphers/TestCipher.java
++++ b/test/org/apache/tomcat/util/net/openssl/ciphers/TestCipher.java
+@@ -76,7 +76,7 @@ public class TestCipher {
+         // OpenSSL does not include ECDH/ECDHE ciphers in all and there is no
+         //         EC alias. Use aRSA.
+         // OpenSSL 1.0.0 onwards does not include eNULL in all.
+-        Set<String> availableCipherSuites = TesterOpenSSL.getOpenSSLCiphersAsSet("ALL:eNULL:aRSA");
++        Set<String> availableCipherSuites = TesterOpenSSL.getOpenSSLCiphersAsSet("ALL:eNULL:aRSA:!ARIA");
+ 
+         Set<String> expectedCipherSuites = new HashSet<>();
+         for (Cipher cipher : Cipher.values()) {
+diff --git a/test/org/apache/tomcat/util/net/openssl/ciphers/TestOpenSSLCipherConfigurationParser.java b/test/org/apache/tomcat/util/net/openssl/ciphers/TestOpenSSLCipherConfigurationParser.java
+index a03d97b..5601c91 100644
+--- a/test/org/apache/tomcat/util/net/openssl/ciphers/TestOpenSSLCipherConfigurationParser.java
++++ b/test/org/apache/tomcat/util/net/openssl/ciphers/TestOpenSSLCipherConfigurationParser.java
+@@ -575,7 +575,7 @@ public class TestOpenSSLCipherConfigurationParser {
+ 
+     private void testSpecification(String specification) throws Exception {
+         // Filter out cipher suites that OpenSSL does not implement
+-        String openSSLCipherList = TesterOpenSSL.getOpenSSLCiphersAsExpression(specification);
++        String openSSLCipherList = TesterOpenSSL.getOpenSSLCiphersAsExpression(specification + ":!ARIA");
+         List<String> jsseCipherListFromOpenSSL =
+                 OpenSSLCipherConfigurationParser.parseExpression(openSSLCipherList);
+         List<String> jsseCipherListFromParser =
+diff --git a/test/org/apache/tomcat/util/net/openssl/ciphers/TesterOpenSSL.java b/test/org/apache/tomcat/util/net/openssl/ciphers/TesterOpenSSL.java
+index 9dafe46..97199cc 100644
+--- a/test/org/apache/tomcat/util/net/openssl/ciphers/TesterOpenSSL.java
++++ b/test/org/apache/tomcat/util/net/openssl/ciphers/TesterOpenSSL.java
+@@ -99,6 +99,24 @@ public class TesterOpenSSL {
+         unimplemented.add(Cipher.SSL2_RC4_128_EXPORT40_WITH_MD5);
+         unimplemented.add(Cipher.SSL2_IDEA_128_CBC_WITH_MD5);
+         unimplemented.add(Cipher.SSL2_DES_192_EDE3_CBC_WITH_MD5);
++        unimplemented.add(Cipher.TLS_RSA_WITH_IDEA_CBC_SHA);
++        unimplemented.add(Cipher.TLS_DHE_DSS_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_DHE_DSS_WITH_ARIA_256_GCM_SHA384);
++        unimplemented.add(Cipher.TLS_DHE_PSK_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_DHE_PSK_WITH_ARIA_256_GCM_SHA384);
++        unimplemented.add(Cipher.TLS_DHE_RSA_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_DHE_RSA_WITH_ARIA_256_GCM_SHA384);
++        unimplemented.add(Cipher.TLS_ECDHE_ECDSA_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_ECDHE_ECDSA_WITH_ARIA_256_GCM_SHA384);
++        unimplemented.add(Cipher.TLS_ECDHE_RSA_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_ECDHE_RSA_WITH_ARIA_256_GCM_SHA384);
++        unimplemented.add(Cipher.TLS_PSK_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_PSK_WITH_ARIA_256_GCM_SHA384);
++        unimplemented.add(Cipher.TLS_RSA_PSK_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_RSA_PSK_WITH_ARIA_256_GCM_SHA384);
++        unimplemented.add(Cipher.TLS_RSA_WITH_ARIA_128_GCM_SHA256);
++        unimplemented.add(Cipher.TLS_RSA_WITH_ARIA_256_GCM_SHA384);
++
+         // These were removed in 1.1.0 so won't be available from that
+         // version onwards.
+         unimplemented.add(Cipher.TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA);

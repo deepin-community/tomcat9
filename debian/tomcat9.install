@@ -1,0 +1,12 @@
+debian/rsyslog/*           /etc/rsyslog.d/
+conf/catalina.properties   /usr/share/tomcat9/etc/
+debian/logging.properties  /usr/share/tomcat9/etc/
+conf/*.xml                 /usr/share/tomcat9/etc/
+debian/policy/*.policy     /etc/tomcat9/policy.d/
+debian/default_root        /usr/share/tomcat9-root/
+debian/default.template    /usr/share/tomcat9/
+debian/logrotate.template  /usr/share/tomcat9/
+debian/sysusers/*.conf     /usr/lib/sysusers.d/
+
+debian/libexec/tomcat-start.sh         /usr/libexec/tomcat9/
+debian/libexec/tomcat-update-policy.sh /usr/libexec/tomcat9/

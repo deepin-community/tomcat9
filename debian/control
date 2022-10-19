@@ -1,0 +1,148 @@
+Source: tomcat9
+Section: java
+Priority: optional
+Maintainer: Debian Java Maintainers <pkg-java-maintainers@lists.alioth.debian.org>
+Uploaders:
+ tony mancill <tmancill@debian.org>,
+ Emmanuel Bourg <ebourg@apache.org>
+Build-Depends:
+ ant-optional,
+ bnd (>= 5.0.1),
+ debhelper-compat (= 13),
+ default-jdk,
+ javahelper,
+ junit4 (>= 4.11),
+ libcglib-nodep-java,
+ libeasymock-java (>= 3.0),
+ libeclipse-jdt-core-java (>= 3.18.0),
+ libhamcrest-java (>= 1.3),
+ libjaxrpc-api-java,
+ libobjenesis-java,
+ libtaglibs-standard-impl-java,
+ libtaglibs-standard-spec-java,
+ libtcnative-1 (>= 1.2.18),
+ libwsdl4j-java,
+ lsb-release,
+ maven-repo-helper
+Standards-Version: 4.6.0
+Vcs-Git: https://salsa.debian.org/java-team/tomcat9.git
+Vcs-Browser: https://salsa.debian.org/java-team/tomcat9
+Homepage: http://tomcat.apache.org
+
+Package: tomcat9-common
+Architecture: all
+Depends:
+ default-jre-headless | java8-runtime-headless | java8-runtime,
+ libtomcat9-java (>= ${source:Version}),
+ ${misc:Depends}
+Description: Apache Tomcat 9 - Servlet and JSP engine -- common files
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains common files needed by the tomcat9 and tomcat9-user
+ packages (Tomcat 9 scripts and libraries).
+
+Package: tomcat9
+Architecture: all
+Depends:
+ lsb-base (>= 3.0-6),
+ systemd (>= 238),
+ tomcat9-common (>= ${source:Version}),
+ ucf,
+ ${misc:Depends}
+Recommends:
+ libtcnative-1 (>= 1.2.18)
+Suggests:
+ tomcat9-admin (>= ${source:Version}),
+ tomcat9-docs (>= ${source:Version}),
+ tomcat9-examples (>= ${source:Version}),
+ tomcat9-user (>= ${source:Version})
+Description: Apache Tomcat 9 - Servlet and JSP engine
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains only the startup scripts for the system-wide daemon.
+ No documentation or web applications are included here, please install
+ the tomcat9-docs and tomcat9-examples packages if you want them.
+ Install tomcat9-user instead of this package if you don't want Tomcat to
+ start as a service.
+
+Package: tomcat9-user
+Architecture: all
+Depends:
+ netcat-openbsd,
+ tomcat9-common (>= ${source:Version}),
+ ${misc:Depends}
+Suggests:
+ tomcat9 (>= ${source:Version}),
+ tomcat9-admin (>= ${source:Version}),
+ tomcat9-docs (>= ${source:Version}),
+ tomcat9-examples (>= ${source:Version})
+Description: Apache Tomcat 9 - Servlet and JSP engine -- tools to create user instances
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains files needed to create a user Tomcat instance.
+ This user Tomcat instance can be started and stopped using the scripts
+ provided in the Tomcat instance directory.
+
+Package: libtomcat9-java
+Architecture: all
+Depends: libeclipse-jdt-core-java (>= 3.18.0), ${misc:Depends}
+Suggests: tomcat9 (>= ${source:Version})
+Description: Apache Tomcat 9 - Servlet and JSP engine -- core libraries
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains the Tomcat core classes which can be used by other
+ Java applications to embed Tomcat.
+
+Package: libtomcat9-embed-java
+Architecture: all
+Depends: libeclipse-jdt-core-java (>= 3.18.0), ${misc:Depends}
+Description: Apache Tomcat 9 - Servlet and JSP engine -- embed libraries
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains the libraries required to embed Tomcat into Java
+ applications.
+
+Package: tomcat9-admin
+Architecture: all
+Depends: tomcat9-common (>= ${source:Version}), ${misc:Depends}
+Description: Apache Tomcat 9 - Servlet and JSP engine -- admin web applications
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains the administrative web interfaces.
+
+Package: tomcat9-examples
+Architecture: all
+Depends:
+ libtaglibs-standard-impl-java,
+ libtaglibs-standard-spec-java,
+ tomcat9-common (>= ${source:Version}),
+ ${misc:Depends}
+Description: Apache Tomcat 9 - Servlet and JSP engine -- example web applications
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains the default Tomcat example webapps.
+
+Package: tomcat9-docs
+Section: doc
+Architecture: all
+Depends: tomcat9-common (>= ${source:Version}), ${misc:Depends}
+Description: Apache Tomcat 9 - Servlet and JSP engine -- documentation
+ Apache Tomcat implements the Java Servlet and the JavaServer Pages (JSP)
+ specifications from Oracle, and provides a "pure Java" HTTP web
+ server environment for Java code to run.
+ .
+ This package contains the online documentation web application.

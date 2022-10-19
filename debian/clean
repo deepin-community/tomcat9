@@ -1,0 +1,4 @@
+output/
+webapps/examples/WEB-INF/lib/*.jar
+debian/tomcat9.postrm
+debian/poms/

@@ -1,0 +1,4 @@
+output/build/bin/bootstrap.jar /usr/share/tomcat9/bin/
+bin/*                          /usr/share/tomcat9/bin/
+
+debian/libexec/tomcat-locate-java.sh /usr/libexec/tomcat9/

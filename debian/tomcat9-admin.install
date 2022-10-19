@@ -1,0 +1,4 @@
+debian/context/manager.xml          /etc/tomcat9/Catalina/localhost/
+debian/context/host-manager.xml     /etc/tomcat9/Catalina/localhost/
+output/build/webapps/manager        /usr/share/tomcat9-admin/
+output/build/webapps/host-manager   /usr/share/tomcat9-admin/

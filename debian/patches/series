@@ -1,0 +1,15 @@
+0004-split-deploy-webapps-target-from-deploy-target.patch
+0005-skip-test-failures.patch
+0009-Use-java.security.policy-file-in-catalina.sh.patch
+0010-debianize-build-xml.patch
+0013-dont-look-for-build-properties-in-user-home.patch
+0018-fix-manager-webapp.patch
+0019-add-distribution-to-error-page.patch
+0023-disable-shutdown-by-socket.patch
+0024-systemd-log-formatter.patch
+0025-invalid-configuration-exit-status.patch
+0026-easymock4-compatibility.patch
+0027-java11-compilation.patch
+0021-dont-test-unsupported-ciphers.patch
+no-java17-yet.patch
+exclude-TestJNDIRealmIntegration.patch

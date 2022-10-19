@@ -1,0 +1,6 @@
+var/cache/tomcat9/
+var/lib/tomcat9/lib
+var/lib/tomcat9/webapps
+var/log/tomcat9/
+etc/tomcat9/Catalina
+etc/logrotate.d

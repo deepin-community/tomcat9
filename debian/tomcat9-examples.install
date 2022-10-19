@@ -1,0 +1,3 @@
+debian/policy/examples/*.policy /etc/tomcat9/policy.d/
+debian/context/examples.xml     /etc/tomcat9/Catalina/localhost/
+output/build/webapps/examples   /usr/share/tomcat9-examples/

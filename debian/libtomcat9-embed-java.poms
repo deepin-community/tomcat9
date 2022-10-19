@@ -1,0 +1,4 @@
+debian/poms/tomcat-embed-core.pom         --java-lib --usj-name=tomcat9-embed-core         --artifact=output/embed/tomcat-embed-core.jar
+debian/poms/tomcat-embed-el.pom           --java-lib --usj-name=tomcat9-embed-el           --artifact=output/embed/tomcat-embed-el.jar
+debian/poms/tomcat-embed-jasper.pom       --java-lib --usj-name=tomcat9-embed-jasper       --artifact=output/embed/tomcat-embed-jasper.jar
+debian/poms/tomcat-embed-websocket.pom    --java-lib --usj-name=tomcat9-embed-websocket    --artifact=output/embed/tomcat-embed-websocket.jar

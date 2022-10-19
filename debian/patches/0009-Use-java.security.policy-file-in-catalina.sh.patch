@@ -1,0 +1,38 @@
+From: Adam Guthrie <asguthrie@gmail.com>
+Date: Mon, 28 Jun 2010 21:53:50 +0200
+Subject: [PATCH] Use java.security.policy file in catalina.sh
+ Make sure catalina.sh uses the Debian/Ubuntu java.security.policy
+ file location when Tomcat is started with a security manager.
+
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/591802
+Bug-Debian: http://bugs.debian.org/585379
+Forwarded: not-needed
+--- a/bin/catalina.sh
++++ b/bin/catalina.sh
+@@ -383,7 +383,7 @@
+         -classpath "$CLASSPATH" \
+         -sourcepath "$CATALINA_HOME"/../../java \
+         -Djava.security.manager \
+-        -Djava.security.policy=="$CATALINA_BASE"/conf/catalina.policy \
++        -Djava.security.policy=="$CATALINA_BASE"/policy/catalina.policy \
+         -Dcatalina.base="$CATALINA_BASE" \
+         -Dcatalina.home="$CATALINA_HOME" \
+         -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+@@ -412,7 +412,7 @@
+       -D$ENDORSED_PROP="\"$JAVA_ENDORSED_DIRS\"" \
+       -classpath "\"$CLASSPATH\"" \
+       -Djava.security.manager \
+-      -Djava.security.policy=="\"$CATALINA_BASE/conf/catalina.policy\"" \
++      -Djava.security.policy=="\"$CATALINA_BASE/policy/catalina.policy\"" \
+       -Dcatalina.base="\"$CATALINA_BASE\"" \
+       -Dcatalina.home="\"$CATALINA_HOME\"" \
+       -Djava.io.tmpdir="\"$CATALINA_TMPDIR\"" \
+@@ -493,7 +493,7 @@
+       -D$ENDORSED_PROP="\"$JAVA_ENDORSED_DIRS\"" \
+       -classpath "\"$CLASSPATH\"" \
+       -Djava.security.manager \
+-      -Djava.security.policy=="\"$CATALINA_BASE/conf/catalina.policy\"" \
++      -Djava.security.policy=="\"$CATALINA_BASE/policy/catalina.policy\"" \
+       -Dcatalina.base="\"$CATALINA_BASE\"" \
+       -Dcatalina.home="\"$CATALINA_HOME\"" \
+       -Djava.io.tmpdir="\"$CATALINA_TMPDIR\"" \

@@ -1,0 +1,68 @@
+Description: This patch changes the manager path from webapps/manager to
+ ../tomcat9-admin/manager
+Author: TJ <ubuntu@iam.tj>, Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1128067
+Reviewed-By: Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+Last-Update: 2013-08-01
+--- a/webapps/host-manager/WEB-INF/manager.xml
++++ b/webapps/host-manager/WEB-INF/manager.xml
+@@ -20,7 +20,7 @@
+     Context configuration file for the Tomcat Manager Web App
+ 
+ -->
+-<Context docBase="${catalina.home}/webapps/manager"
++<Context docBase="${catalina.home}/../tomcat9-admin/manager"
+          privileged="true" antiResourceLocking="false" >
+   <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
+                    sameSiteCookies="strict" />
+--- a/webapps/docs/manager-howto.xml
++++ b/webapps/docs/manager-howto.xml
+@@ -74,7 +74,7 @@
+ <code>$CATALINA_BASE/conf/[enginename]/[hostname]</code> folder. Here is an
+ example:</p>
+ <source><![CDATA[<Context privileged="true" antiResourceLocking="false"
+-         docBase="${catalina.home}/webapps/manager">
++         docBase="${catalina.home}/../tomcat9-admin/manager">
+   <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
+                    sameSiteCookies="strict" />
+   <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+--- a/conf/catalina.policy
++++ b/conf/catalina.policy
+@@ -185,7 +185,7 @@
+ // - default CATALINA_HOME == CATALINA_BASE
+ // - CATALINA_HOME != CATALINA_BASE, per instance Manager in CATALINA_BASE
+ // - CATALINA_HOME != CATALINA_BASE, shared Manager in CATALINA_HOME
+-grant codeBase "file:${catalina.base}/webapps/manager/-" {
++grant codeBase "file:${catalina.base}/../tomcat9-admin/manager/-" {
+     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina";
+     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.ha.session";
+     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager";
+@@ -193,7 +193,7 @@
+     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.util";
+     permission org.apache.catalina.security.DeployXmlPermission "manager";
+ };
+-grant codeBase "file:${catalina.home}/webapps/manager/-" {
++grant codeBase "file:${catalina.home}/../tomcat9-admin/manager/-" {
+     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina";
+     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.ha.session";
+     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager";
+@@ -208,10 +208,10 @@
+ // - default CATALINA_HOME == CATALINA_BASE
+ // - CATALINA_HOME != CATALINA_BASE, per instance Host Manager in CATALINA_BASE
+ // - CATALINA_HOME != CATALINA_BASE, shared Host Manager in CATALINA_HOME
+-grant codeBase "file:${catalina.base}/webapps/host-manager/-" {
++grant codeBase "file:${catalina.base}/../tomcat9-admin/host-manager/-" {
+     permission org.apache.catalina.security.DeployXmlPermission "host-manager";
+ };
+-grant codeBase "file:${catalina.home}/webapps/host-manager/-" {
++grant codeBase "file:${catalina.home}/../tomcat9-admin/host-manager/-" {
+     permission org.apache.catalina.security.DeployXmlPermission "host-manager";
+ };
+ 
+@@ -257,4 +257,4 @@
+ //
+ // The permissions granted to a specific JAR
+ // grant codeBase "war:file:${catalina.base}/webapps/examples.war*/WEB-INF/lib/foo.jar" {
+-// };
+\ No newline at end of file
++// };

@@ -1,0 +1,16 @@
+Description: Fix the exit status when Tomcat terminates because the configuration is invalid
+Author: Emmanuel Bourg <ebourg@apache.org>
+Bug: https://bz.apache.org/bugzilla/show_bug.cgi?id=62607
+--- a/java/org/apache/catalina/startup/Bootstrap.java
++++ b/java/org/apache/catalina/startup/Bootstrap.java
+@@ -470,6 +470,10 @@
+             } else if (command.equals("start")) {
+                 daemon.setAwait(true);
+                 daemon.load(args);
++                if (null == daemon.getServer()) {
++                    log.fatal("Cannot start server. Server instance is not configured.");
++                    System.exit(1);
++                }
+                 daemon.start();
+                 if (null == daemon.getServer()) {
+                     System.exit(1);

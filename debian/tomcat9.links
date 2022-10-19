@@ -1,0 +1,4 @@
+/etc/tomcat9                                /var/lib/tomcat9/conf
+/var/cache/tomcat9                          /var/lib/tomcat9/work
+/var/log/tomcat9                            /var/lib/tomcat9/logs
+/usr/share/doc/tomcat9-common/README.Debian /usr/share/doc/tomcat9/README.Debian

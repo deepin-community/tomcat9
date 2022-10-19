@@ -1,0 +1,2 @@
+# The i18n jars contain only properties files
+libtomcat9-java: codeless-jar usr/share/java/tomcat9-i18n*

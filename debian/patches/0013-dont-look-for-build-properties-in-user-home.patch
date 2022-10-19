@@ -1,0 +1,15 @@
+Description: Don't look for build.properties in the user home directory.
+ This directory doesn't exist on the builders and the attempt to load
+ a property file there causes a build failure.
+Author: Jakub Adam <jakub.adam@ktknet.cz>
+Forwarded: not-needed
+--- a/build.xml
++++ b/build.xml
+@@ -809,7 +809,6 @@
+     <!-- Property that determines if manifests need updating -->
+     <uptodate property="manifests.uptodate"
+         targetfile="${tomcat.manifests}/default.manifest" >
+-      <srcfiles file="${user.home}/build.properties" />
+       <srcfiles file="${basedir}/build.properties" />
+       <srcfiles file="${basedir}/build.properties.default" />
+       <srcfiles file="${basedir}/build.xml" />

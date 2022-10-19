@@ -1,0 +1,24 @@
+.TH "TOMCAT9-INSTANCE-CREATE" "2" "Feb 2010" "" ""
+.SH "NAME"
+tomcat9\-instance\-create \- creates a Tomcat 9 instance
+.SH "SYNOPSIS"
+.B tomcat9\-instance\-create [\fIOPTIONS\fR] \fIDIRECTORYNAME\fR
+.SH "DESCRIPTION"
+The
+.B tomcat9\-instance\-create
+script creates a directory with all required Tomcat 9 CATALINA_BASE elements so that a separate Tomcat 9 instance with its own configuration, libraries or web applications can be run by a user. bin/startup.sh and bin/shutdown.sh scripts are also generated to allow the instance to be started and stopped.
+.TP 
+.B DIRECTORYNAME
+The name of the directory where the instance will be created. It should not exist and will be created automatically.
+.SH "OPTIONS"
+.TP 
+.B \-p HTTPPORT
+The TCP port to use for the default HTTP connector in the instance. The default port is 8080.
+.TP 
+.B \-c CONTROLPORT
+The TCP port to use for Tomcat shutdown control port. The default port is 8005.
+.TP 
+.B \-w MAGICWORD
+The magic word that sent to the control port will trigger the shutdown of the Tomcat instance. The default word is SHUTDOWN.
+.SH "AUTHOR"
+This man page was written by Thierry Carrez <thierry.carrez@ubuntu.com> and is copyright (C) 2008 Canonical Ltd.

@@ -1,0 +1,30 @@
+From: Markus Koschany <apo@debian.org>
+Date: Fri, 24 Sep 2021 16:18:55 +0200
+Subject: no java17 yet
+
+Fixes FTBFS. Remove when we switch to Java 17 as the default JDK.
+---
+ java/org/apache/jasper/compiler/JDTCompiler.java | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/java/org/apache/jasper/compiler/JDTCompiler.java b/java/org/apache/jasper/compiler/JDTCompiler.java
+index 10d80e0..5d12952 100644
+--- a/java/org/apache/jasper/compiler/JDTCompiler.java
++++ b/java/org/apache/jasper/compiler/JDTCompiler.java
+@@ -310,7 +310,6 @@ public class JDTCompiler extends org.apache.jasper.compiler.Compiler {
+             } else if(opt.equals("15")) {
+                 settings.put(CompilerOptions.OPTION_Source, CompilerOptions.VERSION_15);
+             } else if(opt.equals("16")) {
+-                settings.put(CompilerOptions.OPTION_Source, CompilerOptions.VERSION_16);
+             } else if(opt.equals("17")) {
+                 // Constant not available in latest ECJ version shipped with
+                 // Tomcat. May be supported in a snapshot build.
+@@ -372,8 +371,6 @@ public class JDTCompiler extends org.apache.jasper.compiler.Compiler {
+                 settings.put(CompilerOptions.OPTION_TargetPlatform, CompilerOptions.VERSION_15);
+                 settings.put(CompilerOptions.OPTION_Compliance, CompilerOptions.VERSION_15);
+             } else if(opt.equals("16")) {
+-                settings.put(CompilerOptions.OPTION_TargetPlatform, CompilerOptions.VERSION_16);
+-                settings.put(CompilerOptions.OPTION_Compliance, CompilerOptions.VERSION_16);
+             } else if(opt.equals("17")) {
+                 // Constant not available in latest ECJ version shipped with
+                 // Tomcat. May be supported in a snapshot build.

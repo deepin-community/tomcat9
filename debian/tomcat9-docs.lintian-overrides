@@ -1,0 +1,9 @@
+# The documentation is packaged as a web application and is intended to be served
+# from Tomcat at http://localhost:8080/docs, not read directly from /usr/share/doc
+tomcat9-docs: package-contains-documentation-outside-usr-share-doc
+
+# 'docs' is the name of the web application shipped upstream
+tomcat9-docs: unusual-documentation-package-name
+
+# Web font used within a web application
+tomcat9-docs: font-outside-font-dir
